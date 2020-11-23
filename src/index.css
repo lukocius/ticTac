@@ -1,0 +1,95 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto&display=swap");
+body {
+  background-color: black;
+  color: white;
+  font-family: "Roboto", sans-serif;
+  display: flex;
+  /* align-items: center; */
+  justify-content: center;
+  min-height: 100vh;
+  padding: 2rem;
+}
+
+ol, ul {
+  padding-left: 30px;
+}
+
+.board-row:after {
+  clear: both;
+  content: "";
+  display: table;
+}
+
+.game-row:after {
+  clear: both;
+  content: "";
+  display: table;
+}
+
+.status {
+  margin-bottom: 10px;
+}
+
+.square {
+  background: #fff;
+  border: 1px solid #ff652f;
+  float: left;
+  font-size: 24px;
+  font-weight: bold;
+  line-height: 34px;
+  height: 34px;
+  margin-right: -1px;
+  margin-top: -1px;
+  padding: 0;
+  text-align: center;
+  width: 34px;
+}
+
+.square:focus {
+  outline: none;
+}
+
+.kbd-navigation .square:focus {
+  background: #ddd;
+}
+
+.game-info {
+  margin-left: 20px;
+}
+
+.game-container {
+  display: flex;
+  flex-direction: row;
+}
+
+.board {
+  border: 2px solid #cebf7e;
+  float: left;
+}
+
+.board-complete { 
+  float: left;
+  border: 1px solid #ff652f;
+  font-size: 24px;
+  font-weight: bold;
+
+  margin-right: -1px;
+  margin-top: -1px;
+  margin-right: -1px;
+  padding: 0;
+  text-align: center;
+}
+
+.board-complete:after {
+  clear: both;
+  content: "";
+  display: table;
+}
+
+.countdown {
+  display: inline-block;
+}
+
+.settings-label {
+  margin-left: 20px;
+}
