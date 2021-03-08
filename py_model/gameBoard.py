@@ -64,15 +64,32 @@ class Board:
         self.last_move = move
         
         self._local_win_check()
-                
+        has_winner = tic_tac_win_check()
+        if has_winner == 2:
+            return True, 6
+        elif has_winner == 1:
+            return True, self.current_player
+        
         
         self.current_player *= -1
-        self.last_move = move
-        self.availables = self.update_availables(self.last_move)
+        self.last_move = move  # 9x9
+        self.update_availables()
     
     def update_availables(self):
-        pass
-    
+        cb_x = self.last_move[0]//self.size
+        cb_y = self.last_move[1]//self.size
+        
+        self.availables = np.zeros_like(self.state)
+        
+        if self._complete_big_squares[cb_x, cb_y]==0:
+            self.availables[cb_x:cb_x+self.size,
+                              cb_y:cb_y+self.size] = 1-np.abs(
+                                  self.state[cb_x:cb_x+self.size,
+                                             cb_y:cb_y+self.size])
+        else:
+            # Move anywhere free space...
+            self.availables = 1-np.abs(self.state)
+        
         
     def _local_win_check(self):
         # get position!
@@ -81,3 +98,21 @@ class Board:
         current_board = self.state[cb_x:cb_x+self.size,
                               cb_y:cb_y+self.size]
         has_winner = tic_tac_win_check(current_board)
+        
+        # Fill board
+        if has_winner != 0:
+
+            if has_winner == 1:
+                value = self.current_player
+                self.state[cb_x:cb_x+self.size,
+                           cb_y:cb_y+self.size] = self.current_player
+            elif has_winner == 2:
+                value = 6
+
+            self._complete_big_squares[cb_x, cb_y] = value
+
+        return has_winner
+        
+    def _global_win_check(self):
+        has_winner = tic_tac_win_check(self._complete_big_squares)
+        return has_winner
