@@ -9,6 +9,7 @@ Pipeline for model playing model training.
 
 from tictacnet import network
 from gameBoard import Board
+from collections import deque
 
 class TrainingPipeline:
     """
@@ -30,6 +31,11 @@ class TrainingPipeline:
         else:
             self.network = network.load(self.board_size, model_path)    
         
+    def _collect_play_data(self, game_batch_size=64):
+        for i in range(game_batch_size):
+            winner, play_data = self.game.start_self_play(self.mcts_player)
+            # Add data to....
+            play_data = self.deque()
         
     def train(self):
         try:
